@@ -22,7 +22,7 @@ for row in Zip.ZipCode:
             Zip.Valid= "valid"
         
             
-Zip.ix["H" in Zip.ZipCode, 'ZipCode'] = 99999
+
 
 
 Zip.ZipCode = ["9999" for row in Zip.ZipCode if "H" in row[3]]
