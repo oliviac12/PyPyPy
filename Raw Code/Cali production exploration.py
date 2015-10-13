@@ -14,7 +14,7 @@ import pandas as pd
 data = pd.read_csv('MeasuredProduction1.csv', header = False)
 
 # Subset the data to specific columns we need
-Cali_cleanData = data[['Application Number','Program','Host Customer Physical Address City',
+Cali_cleanData = data[['Application Number','Program','Host Customer Physical Address City','Host Customer Physical Address County',
 'Host Customer Physical Address Zip Code','Production Period End Date','Period kWh Production']]
 # rename variable zipcode
 Cali_cleanData.rename(columns={'Host Customer Physical Address Zip Code': 'ZipCode'}, inplace=True)
@@ -30,14 +30,19 @@ Merge1 = pd.merge(Cali_cleanData, Zip, on='ZipCode', how='inner')
 latitude = []
 for row in Merge1['Latitude']:
     latitude.append(row.replace('"', '').strip())
+latitude = [round(float(elem), 4) for elem in latitude]
 Merge1['latitude'] = latitude
+
 longtitude = []
 for row in Merge1['Longtitude']:
     longtitude.append(row.replace('"', '').strip())
+longtitude = [round(float(elem), 4) for elem in longtitude]
 Merge1['longtitude'] = longtitude
+
 #finalize the merge dataset
 Merge1 = Merge1.drop('Latitude', 1)
 Merge1 = Merge1.drop('Longtitude', 1)
+
 
 Merge1.to_csv('Merge1.csv')
 
