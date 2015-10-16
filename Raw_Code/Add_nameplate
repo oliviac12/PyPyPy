@@ -1,0 +1,5 @@
+import pandas as pd
+Production = pd.read_csv('MeasuredProduction.csv', header = False)
+Nameplate = pd.read_csv('Nameplate.csv',header = False)
+name_merge = pd.merge(Production, Nameplate, on = ['Application Number'], how = 'left')
+name_merge.to_csv('ProductionWithNameplate.csv')
