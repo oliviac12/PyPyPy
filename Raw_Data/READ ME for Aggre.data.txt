@@ -1,0 +1,59 @@
+####Details of the aggre.data, the intention of this data collection is to collect all the counties that listed in the measured production data set by CSI.
+#####updated by 10/9/2015 5:42pm
+So far data set is including:
+Alpine
+Amador
+Butte
+Calaveras
+Colusa
+Contra Costa
+El Dorado
+Freno
+Glenn
+Humboldt
+Inyo
+Kern
+Kings
+Lake
+Lassen
+Los Angeles
+San Diego 
+Madera County, CA (Location ID: FIPS:06039)
+Marin County, CA (Location ID: FIPS:06041)
+Mariposa County, CA (Location ID: FIPS:06043)
+Mendocino County, CA (Location ID: FIPS:06045)
+Merced County, CA (Location ID: FIPS:06047)
+Mono County, CA (Location ID: FIPS:06051)
+Monterey County, CA (Location ID: FIPS:06053)
+Napa County, CA (Location ID: FIPS:06055)
+Nevada County, CA (Location ID: FIPS:06057)
+Orange County, CA (Location ID: FIPS:06059)
+Placer County, CA (Location ID: FIPS:06061)
+Plumas County, CA (Location ID: FIPS:06063)
+Riverside County, CA (Location ID: FIPS:06065)
+Sacramento County, CA (Location ID: FIPS:06067)
+San Benito County, CA (Location ID: FIPS:06069)
+San Bernardino County, CA (Location ID: FIPS:06071)
+San Francisco County, CA (Location ID: FIPS:06075)
+San Joaquin County, CA (Location ID: FIPS:06077)
+San Luis Obispo County, CA (Location ID: FIPS:06079)
+San Mateo County, CA (Location ID: FIPS:06081)
+
+Data that requested:
+Solano County, CA (FIPS:06095)
+Santa Clara County, CA (FIPS:06085)
+Santa Barbara County, CA (FIPS:06083)
+Stanislaus County, CA (FIPS:06099)
+Shasta County, CA (FIPS:06089)
+Ventura County, CA (FIPS:06111)
+Sonoma County, CA (FIPS:06097)
+Santa Cruz County, CA (FIPS:06087)
+Tehama County, CA (FIPS:06103)
+Yuba County, CA (FIPS:06115)
+Sutter County, CA (FIPS:06101)
+Yolo County, CA (FIPS:06113)
+Tulare County, CA (FIPS:06107)
+Tuolumne County, CA (FIPS:06109)
+FIPS:06087 - Santa Cruz County, CA
+FIPS:06101 - Sutter County, CA
+FIPS:06091 - Sierra County, CA

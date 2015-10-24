@@ -1,0 +1,21 @@
+---
+title: "Data Exploration Report"
+author: "Olivia Chen"
+date: "October 21, 2015"
+output: html_document
+---
+
+
+
+```{r}
+data <- read.csv("weatherMerge.csv", header = TRUE)
+summary(data[4:6])
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

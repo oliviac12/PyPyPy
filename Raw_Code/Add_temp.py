@@ -71,6 +71,7 @@ merge2['TPCP'][merge2['TPCP'].isnull()]  #7993 missing value, about 40% of the t
 missing =merge2[pd.isnull(merge2['TPCP'])]
 
 
+#### MERGE PRODUCTION with SD TEMP
 
 #convert gps coordinate string into float in SD_temp
 SD_temp['LATITUDE'] = map(float, SD_temp['LATITUDE'])
@@ -79,10 +80,6 @@ sd_latitude_temp = [round(float(elem), 4) for elem in SD_temp['LATITUDE']]
 sd_longitude_temp = [round(float(elem), 4) for elem in SD_temp['LONGITUDE']]
 sd_temp_gps = zip(sd_latitude_temp, sd_longitude_temp)
 unique_SDTEMP = list(set(sd_temp_gps))
-
-
-
-
 
 #find the nearest for sd_temp
 nearest_SDtemp = []
