@@ -1,0 +1,19 @@
+SD_tp = pd.read_csv('SD_tp.csv', header = False)
+SD_tp['DATE'] = map(str,SD_tp['DATE'])
+SD_tp['month'] = [datetime.datetime.strptime(date, "%Y%m%d").strftime("%m/%Y") for date in SD_tp['DATE']]
+SD_May = SD_tp[SD_tp['month'] == '05/2007']
+
+SD_May['LATITUDE'] = map(float, SD_May['LATITUDE'])
+SD_May['LONGITUDE'] = map(float, SD_May['LONGITUDE'])
+sd_latitude_may = [round(float(elem), 4) for elem in SD_May['LATITUDE']]
+sd_longitude_may = [round(float(elem), 4) for elem in SD_May['LONGITUDE']]
+
+nearest_may = []
+pts_tp = [geopy.Point(p[0], p[1]) for p in unique_SDTP]
+onept = [ geopy.Point(coord[0],coord[1]) for coord in unique_GPS ]
+for coord in onept:
+        alldist = [(p, geopy.distance.distance(p, coord).km) for p in pts_tp ]
+        if min(alldist, key=lambda x: (x[1]))[1] < 25:
+            nearest_SDtp.append(min(alldist, key=lambda x: (x[1]))[0])
+        else:
+            nearest_SDtp.append(-9999)
