@@ -1,0 +1,14 @@
+---
+title: "Data Exploration Plot 1"
+author: "Olivia Chen"
+date: "November 1, 2015"
+output: html_document
+---
+
+
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+data <- read.csv("f_DFF.csv", header = TRUE)
+pairs(data[c(6,11,16,20,21)], main = "CSI production data")
+```
+
