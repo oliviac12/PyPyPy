@@ -1,4 +1,4 @@
-data <- read.csv("DFF.csv", header = TRUE)
+data <- read.csv("f_DFF.csv", header = TRUE)
 library(ggplot2)
 #--------------
 # Create Theme
@@ -52,7 +52,7 @@ ggplot(data=data, aes(x=Production.Ratio)) +
 #------------------------
 
 
-ggplot(data, aes(x=Program.Administrator, y=Production.Ratio, fill=Program.Administrator)) +
+ggplot(data, aes(x=Program.Administrator, y=Production.Ratio)) +
        geom_boxplot()
 
 
@@ -93,12 +93,12 @@ ggplot(data=data, aes(x=Failure_Rate, y=Production.Ratio)) +
 ggplot(data=data, aes(x=MNTM, y=Production.Ratio)) +
   geom_point(aes(color=Program.Administrator)) +
   theme_bw()
+
 require(GGally)
-p <- ggpairs(data[c(6,9:11,15,18,19)],upper = "blank")
+p <- ggpairs(data[c(6,11,16,20,21)],upper = "blank")
 p
-pairs(data[c(6,9:11,15,18,19)])
+pairs(data[c(6,11,16,20,21)])
 
 ggplot(data, aes(x=Program.Administrator, y=Production.Ratio, fill=Program.Administrator)) +
   geom_boxplot()
 
-render("dataexplorationmd.Rmd", "pdf_document")

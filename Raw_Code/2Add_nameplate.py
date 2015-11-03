@@ -3,7 +3,7 @@ import geopy
 import geopy.distance
 import datetime
 
-#merge nameplate and calculated varibale ratio
+#merge nameplate and calculated variable "specific yield" (raw production/nameplate)
 Production = pd.read_csv('Merge1.csv', header = False)
 Nameplate = pd.read_csv('Nameplate.csv',header = False)
 name_merge = pd.merge(Production, Nameplate, on = ['Application Number'], how = 'left')
@@ -128,6 +128,7 @@ DF = pd.merge(df1, df, on = ['Application Number', 'Production Period End Date',
 
 #missing value
 DF['MMXT'][DF['MMXT'].isnull()]
+#since the data set is big enough so get rid of some missing value
 DF = DF[pd.notnull(DF['MMXT'])]
 DF['MMXT'] = DF['MMXT']/10
 DF['MMNT'] = DF['MMNT']/10

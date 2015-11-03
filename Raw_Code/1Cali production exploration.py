@@ -11,6 +11,7 @@ Created on Tue Sep 29 09:58:28 2015
 import numpy as np
 import geocoder as geo
 import pandas as pd
+
 data = pd.read_csv('MeasuredProduction.csv', header = False)
 
 # Subset the data to specific columns we need
@@ -47,46 +48,5 @@ Merge1 = Merge1.drop('Longtitude', 1)
 
 Merge1.to_csv('Merge1.csv')
 
-#Creat GHI data for our locatioins in Cali production dataset
-######################################################################################
-Production = pd.read_csv('Merge1.csv', header = False)
-import urllib2
-import json
-import numpy as np
-latitude = Production['latitude']
-longtitude = Production['longtitude']
-latitude = np.array(latitude)
-longtitude = np.array(longtitude)
-latitude = map(float, latitude)
-longtitude = map(float, longtitude) 
-gps = zip(latitude, longtitude)
-unique_gps = set(gps)
-unique_GPS = list(set(unique_gps))
-#creating a function to get GHI of a specific location
-def ghi(lat, lon):
-    baseurl = 'https://developer.nrel.gov/api/solar/solar_resource/v1.json?api_key=Qpa5B4aYqoSYi0C4jeGgbtVkM91k5ZSU7KZi849R&'
-    url = baseurl +'lat=' + str(lat) + '&' + 'lon=' + str(lon)
-    f = urllib2.urlopen(url)
-    json_string = f.read()
-    parsed_json = json.loads(json_string)
-    monthly_ghi = parsed_json['outputs']['avg_ghi']['monthly']
-    return monthly_ghi
-#try to build a dataframe of GHI, dont name your list as 
-GHI_jan = []  
-lat = 32.89999
-lon = -117.20722
 
-ghi(lat, lon)
-GHI_jan(ghi(32.89999,-117.20722))
-GHI.append(ghi(32.761801,-117.01273))
-GHI = list()
-for lat,lon in unique_GPS:
-    GHI.append(ghi(lat, lon))   
-    
-    
-elevation(latitude, longtitude)
-elevation.feet
-elevation = []
-elevation = geo.elevation([Merge1['latitude'], Merge1['longtitude']])
-Merge1['elevation'] = elevation
     

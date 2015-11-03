@@ -18,13 +18,3 @@ merge_manu = pd.merge(add_f, raw, on = ['Application Number'], how = 'left')
 tankproduction = merge_manu[merge_manu['Manufacturer'] == 'TenKsolar']
 tank = add_f[add_f['Manufacturer'] == 'TenKsolar']
 
-
-
-f_DFF = pd.read_csv('f_DFF.csv', header = False)
-##find out Temp are higher than -2 and convert the corresponded snow to melt water
-Neg2 = f_DFF[f_DFF['MNTM'] >= -2]
-Neg2['TSNW'] = Neg2['TSNW']/10
-po2 =  f_DFF[f_DFF['MNTM'] < -2]
-F_DFF = pd.concat([po2, Neg2])
-F_DFF['MTR'] = F_DFF['TPCP'] - F_DFF['TSNW']
-F_DFF.to_csv('f_DFF.csv')
