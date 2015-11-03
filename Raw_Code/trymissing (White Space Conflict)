@@ -1,2 +1,0 @@
-SD_tp = pd.read_csv('SD_tp.csv', header = False)
-SD_tp['month'] = [datetime.datetime.strptime(date, "%Y%m%d").strftime("%m/%Y") for date in SD_tp['DATE']]
