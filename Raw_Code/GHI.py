@@ -5,6 +5,9 @@ Production = pd.read_csv('Merge1.csv', header = False)
 import urllib2
 import json
 import numpy as np
+from pandas.io.json import json_normalize
+import itertools
+import datetime
 latitude = Production['latitude']
 longtitude = Production['longtitude']
 latitude = np.array(latitude)
@@ -26,7 +29,22 @@ def ghi(lat, lon):
 #try to build a dataframe of GHI, dont name your list as 
 
 GHI = []
-for ele in unique_GPS[0:1]:
-    ghi(ele[0], ele[1])   
-    
-    
+for ele in unique_GPS[700:794]:
+    GHI.append(ghi(ele[0], ele[1]))   
+#convert to data frame
+GPS = pd.DataFrame(unique_GPS)
+GHI = json_normalize(GHI)
+f_GHI = pd.concat([GHI, GPS], axis=1)
+f_GHI.columns = ['apr', 'aug', 'dec', 'feb','jan', 'jul', 'jun', 'mar', 'may', 'nov', 'oct', 'sep', 'lat','log']
+GHI1 = pd.melt(GHI, value_vars=['apr', 'aug', 'dec', 'feb','jan', 'jul', 'jun', 'mar', 'may', 'nov', 'oct', 'sep'])
+
+lat = list(itertools.repeat(list(GPS[0]), 12))
+Lat= sum(lat, [])
+GHI1['lat'] = Lat
+
+log = list(itertools.repeat(list(GPS[1]), 12))
+Log = sum(log, [])
+GHI1['log'] = Log
+GHI1.to_csv('GHI.csv')
+
+

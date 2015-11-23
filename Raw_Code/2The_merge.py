@@ -7,7 +7,7 @@ import datetime
 Production = pd.read_csv('Merge1.csv', header = False)
 Nameplate = pd.read_csv('Nameplate.csv',header = False)
 name_merge = pd.merge(Production, Nameplate, on = ['Application Number'], how = 'left')
-name_merge['Production Ratio'] = name_merge['Nameplate Rating']/name_merge['Period kWh Production']
+name_merge['Specific Yield'] = name_merge['Nameplate Rating']/name_merge['Period kWh Production']
 name_merge.to_csv('ProductionWithNameplate.csv')
 
 #read percipitation data
