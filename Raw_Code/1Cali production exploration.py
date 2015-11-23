@@ -15,7 +15,7 @@ import pandas as pd
 data = pd.read_csv('MeasuredProduction.csv', header = False)
 
 # Subset the data to specific columns we need
-Cali_cleanData = data[['Application Number','Program','Total Cost','Host Customer Physical Address City',
+Cali_cleanData = data[['Application Number','Program','Host Customer Physical Address City',
                         'Host Customer Physical Address County','Host Customer Physical Address Zip Code',
                         'Production Period End Date','Period kWh Production']]
 # rename variable zipcode
