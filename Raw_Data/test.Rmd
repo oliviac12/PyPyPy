@@ -1,0 +1,52 @@
+---
+title: "Untitled"
+author: "Olivia Chen"
+date: "November 10, 2015"
+output: html_document
+---
+
+
+**Take a look of the data**:
+
+- 79.9% are Large Commercial Project
+- 20.1% are Small Commercial and All Residential
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+data <- read.csv("f_DFF.csv", header = TRUE)
+ggplot(data=data, aes(x=Program)) + geom_histogram(fill="#880011") 
+```
+
+**Specific Yield and Program Type**
+
+- Specific Yield = Production (kWh)/Nameplate(Kw)
+
+```{r, echo =FALSE, message=FALSE, warning=FALSE}
+# BASIC THEME
+theme.car_chart <- 
+  theme(legend.position = "none") +
+  theme(plot.title = element_text(size=18, hjust=0, color="#666666")) +
+  theme(axis.title = element_text(size=18, color="#666666")) +
+  theme(axis.title.y = element_text(angle=0)) 
+
+
+# SCATTERPLOT THEME
+theme.car_chart_SCATTER <- theme.car_chart +
+  theme(axis.title.x = element_text(hjust=0, vjust=-.5))
+
+# HISTOGRAM THEME
+theme.car_chart_HIST <- theme.car_chart +
+  theme(axis.title.x = element_text(hjust=0, vjust=-.5))
+
+# SMALL MULTIPLE THEME
+theme.car_chart_SMALLM <- theme.car_chart +
+  theme(panel.grid.minor = element_blank()) +
+  theme(strip.text.x = element_text(size=16, family="Trebuchet MS", face="bold", color="#666666"))
+
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=MTR, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Rain") +
+  labs(x="Rain, inches", y="Specific Yield,\n kwh/kw") 
+
+```

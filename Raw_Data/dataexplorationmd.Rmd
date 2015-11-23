@@ -7,7 +7,6 @@ output: html_document
 
 
 **Take a look of the data**:
-In 136309 Obervations 
 
 - 79.9% are Large Commercial Project
 - 20.1% are Small Commercial and All Residential
@@ -23,26 +22,7 @@ ggplot(data=data, aes(x=Program)) + geom_histogram(fill="#880011")
 - Specific Yield = Production (kWh)/Nameplate(Kw)
 
 ```{r, echo =FALSE, message=FALSE, warning=FALSE}
-# BASIC THEME
-theme.car_chart <- 
-  theme(legend.position = "none") +
-  theme(plot.title = element_text(size=26, family="Trebuchet MS", face="bold", hjust=0, color="#666666")) +
-  theme(axis.title = element_text(size=18, family="Trebuchet MS", face="bold", color="#666666")) +
-  theme(axis.title.y = element_text(angle=0)) 
 
-
-# SCATTERPLOT THEME
-theme.car_chart_SCATTER <- theme.car_chart +
-  theme(axis.title.x = element_text(hjust=0, vjust=-.5))
-
-# HISTOGRAM THEME
-theme.car_chart_HIST <- theme.car_chart +
-  theme(axis.title.x = element_text(hjust=0, vjust=-.5))
-
-# SMALL MULTIPLE THEME
-theme.car_chart_SMALLM <- theme.car_chart +
-  theme(panel.grid.minor = element_blank()) +
-  theme(strip.text.x = element_text(size=16, family="Trebuchet MS", face="bold", color="#666666"))
 
 ggplot(data,aes(x=Program, y=Specific_Yield)) + geom_boxplot() 
 small = subset(data, Program == 'Small Commercial (< 10 kW) and All Residential')
@@ -51,11 +31,6 @@ summary(small$Specific_Yield)
 summary(large$Specific_Yield)
 ```
 
-**Specific Yield and Program Administrator?**
-```{r,echo=FALSE, message=FALSE, warning=FALSE}
-ggplot(data, aes(x=Program.Administrator, y=Specific_Yield, fill=Program.Administrator)) +
-       geom_boxplot()
-```
 
 **Histogram of Specific Yield**
 
@@ -65,45 +40,53 @@ ggplot(data, aes(x=Program.Administrator, y=Specific_Yield, fill=Program.Adminis
 ggplot(data=data, aes(x=Specific_Yield)) +
   geom_histogram(fill="#880011") +  
   ggtitle("Histogram of Specific Yield") +
-  labs(x="Specific Yield", y="Count") + 
-  theme.car_chart_HIST
+  labs(x="Specific Yield", y="Count") 
 ```
 
 **Specific Yield and Rain fall?**
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(data=data, aes(x=MTR, y=Specific_Yield)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Production Ratio vs. Rain") +
-  labs(x="Rain, inches to hundredths", y="Production Ratio,\n kwh/kw") +
-  theme.car_chart_SCATTER
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Rain") +
+  labs(x="Monthly Rain, inches", y="Monthly Specific Yield,\n kwh/kw") 
 ```
 
 **Specific Yield and Snow fall?**
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(data=data, aes(x=TSNW, y=Specific_Yield)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Production Ratio vs. Snow") +
-  labs(x="Rain, inches to tenths", y="Production Ratio,\n kwh/kw") +
-  theme.car_chart_SCATTER
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Snow") +
+  labs(x="Monthly Snow, inches", y="Monthly Specific Yield,\n kwh/kw") 
 ```
 
 **Specific Yield and project coast?**
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(data=data, aes(x=Total.Cost, y=Specific_Yield)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Production Ratio vs. Cost") +
-  labs(x="Cost", y="Production Ratio,\n kwh/kw") +
-  theme.car_chart_SCATTER
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Cost") +
+  labs(x="Cost", y="Specific Yield,\n kwh/kw") 
 ```
 
 **Specific Yield and Temperature?**
 ```{r,echo=FALSE, message=FALSE, warning=FALSE}
 ggplot(data=data, aes(x=MNTM, y=Specific_Yield)) +
-  geom_point(alpha=.4, size=4, color="#880011") +
-  ggtitle("Production Ratio vs. Temperature") +
-  labs(x="Monthly Average Temperature (C)", y="Production Ratio,\n kwh/kw") +
-  theme.car_chart_SCATTER
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Temperature") +
+  labs(x="Monthly Average Temperature (C)", y="Monthly Specific Yield,\n kwh/kw") 
 ```
 
+**Specific Yield and Tilt?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=CSI.Project.Tilt, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Tilt") +
+  labs(x="Tilt", y="Monthly Specific Yield,\n kwh/kw") 
+```
 
-
+**Specific Yield and GHI?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=GHI, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. GHI") +
+  labs(x="Monthly GHI", y="Monthly Specific Yield,\n kwh/kw") 
+```
