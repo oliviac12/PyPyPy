@@ -33,7 +33,14 @@ day_number = Lookup1[Lookup1['Month']== Input['Month'][0]]
 Result['day_number'] = day_number['Model_Date_Number']
 # Get DHI
 DHI = float(Input['Ghi'][0]) - float(Input['Dhi'][0])
+Result['DHI'] = DHI
 # Get DIT
 def dit(DHI,lat, day_number, Tilt):
-    top = DHI*math.sin(
+    top = DHI*math.sin(90-lat+(23.45*math.sin((day_number-81)*0.9863))+Tilt)
+    bottom = math.sin(90-lat+(23.45*math.sin((day_number-81)*0.9863)))
+    answer = top/bottom
+    return answer
     
+dit(float(Result['DHI']), float(Input['lat']), float(Result['day_number']), float(Input['Tilt']))
+    
+
