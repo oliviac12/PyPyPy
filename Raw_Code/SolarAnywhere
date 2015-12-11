@@ -1,2 +1,0 @@
-test = pd.read_csv('GHI-1.csv')
-first_row = pd.read_csv('GHI-1.csv', nrows=1)

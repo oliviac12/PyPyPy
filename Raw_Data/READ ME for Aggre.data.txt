@@ -38,8 +38,6 @@ San Francisco County, CA (Location ID: FIPS:06075)
 San Joaquin County, CA (Location ID: FIPS:06077)
 San Luis Obispo County, CA (Location ID: FIPS:06079)
 San Mateo County, CA (Location ID: FIPS:06081)
-
-Data that requested:
 Solano County, CA (FIPS:06095)
 Santa Clara County, CA (FIPS:06085)
 Santa Barbara County, CA (FIPS:06083)

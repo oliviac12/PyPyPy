@@ -1,0 +1,92 @@
+---
+title: "Data Exploration Plot"
+author: "Olivia Chen"
+date: "November 1, 2015"
+output: html_document
+---
+
+
+**Take a look of the data**:
+
+- 79.9% are Large Commercial Project
+- 20.1% are Small Commercial and All Residential
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(ggplot2)
+data <- read.csv("f_DFF.csv", header = TRUE)
+ggplot(data=data, aes(x=Program)) + geom_histogram(fill="#880011") 
+```
+
+**Specific Yield and Program Type**
+
+- Specific Yield = Production (kWh)/Nameplate(Kw)
+
+```{r, echo =FALSE, message=FALSE, warning=FALSE}
+
+
+ggplot(data,aes(x=Program, y=Specific_Yield)) + geom_boxplot() 
+small = subset(data, Program == 'Small Commercial (< 10 kW) and All Residential')
+large = subset(data, Program == 'Large Commercial (>= 10 kW)')
+summary(small$Specific_Yield)
+summary(large$Specific_Yield)
+```
+
+
+**Histogram of Specific Yield**
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+    
+ggplot(data=data, aes(x=Specific_Yield)) +
+  geom_histogram(fill="#880011") +  
+  ggtitle("Histogram of Specific Yield") +
+  labs(x="Specific Yield", y="Count") 
+```
+
+**Specific Yield and Rain fall?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=MTR, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Rain") +
+  labs(x="Monthly Rain, inches", y="Monthly Specific Yield,\n kwh/kw") 
+```
+
+**Specific Yield and Snow fall?**
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=TSNW, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Snow") +
+  labs(x="Monthly Snow, inches", y="Monthly Specific Yield,\n kwh/kw") 
+```
+
+**Specific Yield and project coast?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=Total.Cost, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Cost") +
+  labs(x="Cost", y="Specific Yield,\n kwh/kw") 
+```
+
+**Specific Yield and Temperature?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=MNTM, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Temperature") +
+  labs(x="Monthly Average Temperature (C)", y="Monthly Specific Yield,\n kwh/kw") 
+```
+
+**Specific Yield and Tilt?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=CSI.Project.Tilt, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. Tilt") +
+  labs(x="Tilt", y="Monthly Specific Yield,\n kwh/kw") 
+```
+
+**Specific Yield and GHI?**
+```{r,echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(data=data, aes(x=GHI, y=Specific_Yield)) +
+  geom_point(alpha=.2, size=2, color="#880011") +
+  ggtitle("Specific Yield vs. GHI") +
+  labs(x="Monthly GHI", y="Monthly Specific Yield,\n kwh/kw") 
+```
