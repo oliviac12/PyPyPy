@@ -11,6 +11,7 @@ RealGHI = RealGHI.drop('Unnamed: 0.1', 1)
 
 #load ghipoints data to connect cloest and actual points 
 ghipoints = pd.read_csv("ghipoints.csv", header = False)
+ghipoints['actual'] = map(str, ghipoints['actual'])
 actual_lat = [gps[1: -1].split(', ')[0] for gps in ghipoints['actual']]
 actual_log = [gps[1: -1].split(', ')[1] for gps in ghipoints['actual']]
 lat = map(float, actual_lat)
@@ -27,6 +28,7 @@ ghipoints['clo_lat'] = clo_lat
 ghipoints['clo_log'] = clo_log
 ghipoints = ghipoints.drop('closest', 1)
 ghipoints = ghipoints.drop('actual', 1)
+ghipoints.to_csv('ghipoints1.csv')
 
 
 #load MAIN DATA (data set used for modeling) 
@@ -37,16 +39,26 @@ main = main[pd.notnull(main['Specific_Yield'])]
 #Merge Main DATA and ghipoints with actual log and lat
 gps_Merge = pd.merge(main, ghipoints, on=['latitude','longtitude'], how='inner')
 
+
 #go back to RealGHI data, make sure cloest coordinate is in the same format as Main data
 #RealGHI['closest'] = zip(RealGHI['lat'], RealGHI['log'])
 
 #Merge Main Data with RealGHI with cloest and Data
-gps_Merge['Production Period End Date'] = [datetime.datetime.strptime(date, "%m/%d/%y" ).strftime("%m/%Y") for date in gps_Merge['Production Period End Date']]
-gps_Merge.rename(columns={'Production Period End Date': 'Date' }, inplace=True)
+gps_Merge['Production Period End Date'] = [datetime.datetime.strptime(date, "%m/%d/%y" ).strftime("%Y") for date in gps_Merge['Production Period End Date']]
+#gps_Merge.rename(columns={'Production Period End Date': 'Date' }, inplace=True)
+gps_Merge['M'] = [m.title() for m in gps_Merge['M']]
+Month_Date = []
+for i in range(0, len(gps_Merge['M'])):
+    Month_Date.append(gps_Merge['M'][i] + gps_Merge['Production Period End Date'][i])
+#datetime.datetime.strptime(gps_Merge['M'][i] + gps_Merge['Production Period End Date'][i], '%b%Y'))
+    
+#gps_Merge['Month_Date'] = datetime.datetime.strptime(gps_Merge['M'] + gps_Merge['Production Period End Date'], '%b%Y')
+gps_Merge['Month_Date'] = Month_Date
+gps_Merge['Month_Date'] = [datetime.datetime.strptime(date, "%b%Y" ).strftime("%m/%Y") for date in gps_Merge['Month_Date']]
 gps_Merge.rename(columns={'GHI': 'ghi' }, inplace=True)
-RealGHI.rename(columns={'lat': 'clo_lat', 'log':'clo_log' }, inplace=True)
-final_merge = pd.merge(gps_Merge, RealGHI, on=['Date', 'clo_lat', 'clo_log'], how='inner') #not working
-
+RealGHI.rename(columns={'lat': 'clo_lat', 'log':'clo_log', 'Date':'Month_Date' }, inplace=True)
+final_merge = pd.merge(gps_Merge, RealGHI, on=['Month_Date', 'clo_lat', 'clo_log'], how='inner') #not working
+final_merge.to_csv('main_real_ghi.csv')
 
 
 
