@@ -1,0 +1,10 @@
+data <- read.csv("main_real_ghi.csv", header = TRUE)
+plot(data$GHI ~ data$ghi)
+cor(data$GHI, data$ghi)
+plot.ts(data$GHI, xlab = "Date")
+time <- ts(data$GHI, start = c(2008, 2012))
+plot(time)
+plot(data$GHI)
+
+reg <- lm(Specific_Yield ~ ghi + MNTM + TSNW  + CSI.Project.Tilt + MTR, data = data)
+summary(reg)
