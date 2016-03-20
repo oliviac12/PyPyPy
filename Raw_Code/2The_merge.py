@@ -4,7 +4,7 @@ import geopy.distance
 import datetime
 
 #merge nameplate and calculated variable "specific yield" (raw production/nameplate)
-Production = pd.read_csv('Merge1.csv', header = False)
+Production = cleanMeansuredProduction()
 Nameplate = pd.read_csv('Nameplate.csv',header = False)
 name_merge = pd.merge(Production, Nameplate, on = ['Application Number'], how = 'left')
 name_merge['Specific Yield'] = name_merge['Nameplate Rating']/name_merge['Period kWh Production']
@@ -16,14 +16,14 @@ tp = pd.read_csv('Rain_snow.csv', header = False)
 #read temp data
 temp = pd.read_csv('Temp.csv', header = False)
 
-#create a new variable 'month' to help mereing 
+#create a new variable 'month' to help mereing
 tp['DATE'] = map(str, tp['DATE'])
 tp['month'] = [datetime.datetime.strptime(date, "%Y%m%d").strftime("%m/%Y") for date in tp['DATE']]
 temp['DATE'] = map(str, temp['DATE'])
 temp['month'] = [datetime.datetime.strptime(date, "%Y%m%d").strftime("%m/%Y") for date in temp['DATE']]
 
 #creat month for production data as well
-#since production period date might ends on the first day of the month, 
+#since production period date might ends on the first day of the month,
 #we need to make sure they are using the temp from the last month
 month = []
 for date in name_merge['Production Period End Date']:
@@ -33,14 +33,14 @@ for date in name_merge['Production Period End Date']:
         else:
             m = int(datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%m")) - 1
         y = int(datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%Y"))
-        new = str(m) + '/' + str(y) 
+        new = str(m) + '/' + str(y)
         month.append(datetime.datetime.strptime(new, "%m/%Y").strftime("%m/%Y"))
     else:
         month.append(datetime.datetime.strptime(date, "%Y-%m-%d").strftime("%m/%Y"))
-        
+
 name_merge['month'] = month
 
-# for merging production with percipitation and temp data, need to make sure 
+# for merging production with percipitation and temp data, need to make sure
 # they are merging within the same month. so I subset all the data for the same month
 # then find the cloest GPS point in weather data for production data, then merge
 
@@ -72,7 +72,7 @@ def nearest(Month):
     Production['LATITUDE'] = [point[0] for point in nearest]
     Production['LONGITUDE'] = [point[1] for point in nearest]
     month_merge = pd.merge(Production, s_r, on = ['LATITUDE','LONGITUDE'], how = 'left')
-    merge_sr = month_merge[['Application Number', 'Program', 'ZipCode', 'Production Period End Date', 
+    merge_sr = month_merge[['Application Number', 'Program', 'ZipCode', 'Production Period End Date',
                         'Period kWh Production', 'month_x', 'TPCP', 'TSNW']]
     return merge_sr
 
@@ -114,7 +114,7 @@ def nearestTemp(Month):
     Production['LATITUDE'] = [point[0] for point in nearest]
     Production['LONGITUDE'] = [point[1] for point in nearest]
     month_merge = pd.merge(Production, tem, on = ['LATITUDE','LONGITUDE'], how = 'left')
-    merge_tem = month_merge[['Application Number', 'Program', 'ZipCode', 'Production Period End Date', 
+    merge_tem = month_merge[['Application Number', 'Program', 'ZipCode', 'Production Period End Date',
                         'Period kWh Production', 'month_x', 'MMXT', 'MMNT','MNTM']]
     return merge_tem
 
