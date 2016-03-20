@@ -1,1 +1,3 @@
-DS project using python
+Solar Production Project using Python
+
+More details to come...
